@@ -12,7 +12,7 @@ pipeline {
     // กำหนด environment variables
     environment {
         DOCKER_HUB_CREDENTIALS_ID = 'dockerhub-cred'
-        DOCKER_REPO               = "phanuphun/express-docker-jenkins"
+        DOCKER_REPO               = "parnuphun1598/express-docker-jenkins"
         APP_NAME                  = "express-docker-jenkins"
     }
 
