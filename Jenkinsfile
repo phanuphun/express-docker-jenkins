@@ -7,8 +7,8 @@ pipeline {
     environment {
         // ใช้ค่าเป็น "credentialsId" ของ Jenkins โดยตรงสำหรับ docker.withRegistry
         DOCKER_HUB_CREDENTIALS_ID = 'dockerhub-cred'
-        DOCKER_REPO = "iamsamitdev/express-docker-app"
-        APP_NAME = "express-docker-app"
+        DOCKER_REPO = "phanuphun/express-docker-jenkins"
+        APP_NAME = "express-docker-jenkins"
     }
 
     // กำหนด stages ของ Pipeline
@@ -139,7 +139,7 @@ pipeline {
                             docker pull ${DOCKER_REPO}:latest
                             docker stop ${APP_NAME} || echo ignore
                             docker rm ${APP_NAME} || echo ignore
-                            docker run -d --name ${APP_NAME} -p 3000:3000 ${DOCKER_REPO}:latest
+                            docker run -d --name ${APP_NAME} -p 3031:3000 ${DOCKER_REPO}:latest
                             docker ps --filter name=${APP_NAME} --format \"table {{.Names}}\t{{.Image}}\t{{.Status}}\"
                         """
                     } else {
@@ -147,7 +147,7 @@ pipeline {
                             docker pull ${DOCKER_REPO}:latest
                             docker stop ${APP_NAME} || true
                             docker rm ${APP_NAME} || true
-                            docker run -d --name ${APP_NAME} -p 3000:3000 ${DOCKER_REPO}:latest
+                            docker run -d --name ${APP_NAME} -p 3031:3000 ${DOCKER_REPO}:latest
                             docker ps --filter name=${APP_NAME} --format "table {{.Names}}\t{{.Image}}\t{{.Status}}"
                         """
                     }
