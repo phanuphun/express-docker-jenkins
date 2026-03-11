@@ -66,6 +66,28 @@ pipeline {
         // การทำงานของ Pipe | และ --password-stdin
         // echo "\${DOCKER_PASS}": คำสั่งนี้จะส่งค่า Password จริงๆ ออกไป
         // | (Pipe): แต่แทนที่จะส่งไปที่หน้าจอ Log, เครื่องหมาย pipe จะ ส่งต่อ (redirect) ผลลัพธ์ของ echo ไปเป็น Input (stdin) ของคำสั่งถัดไปทันที
+
+        // *** 
+        // stage('Push Docker Image') {
+        //     options {
+        //         timeout(time: 10, unit: 'MINUTES')
+        //     }
+        //     steps {
+        //         withCredentials([usernamePassword(credentialsId: env.DOCKER_HUB_CREDENTIALS_ID, usernameVariable: 'DOCKER_USER', passwordVariable: 'DOCKER_PASS')]) {
+        //             sh """
+        //                 echo "Logging into Docker Hub..."
+        //                 echo "\${DOCKER_PASS}" | docker login -u "\${DOCKER_USER}" --password-stdin
+        //                 echo "Pushing image to Docker Hub..."
+        //                 docker push ${DOCKER_REPO}:${BUILD_NUMBER}
+        //                 docker push ${DOCKER_REPO}:latest
+        //                 docker logout
+        //             """
+        //         }
+        //     }
+        // }
+
+        
+        // use withRegistry (แนะนำ) - วิธีนี้จะจัดการเรื่องการล็อกอินและออกจากระบบให้โดยอัตโนมัติ และไม่ต้องกังวลเรื่องการจัดการ credential ด้วยตนเอง
         stage('Push Docker Image') {
             steps {
                 script {
@@ -76,6 +98,7 @@ pipeline {
                 }
             }
         }
+        
 
         // Stage 5: เคลียร์ Docker images บน agent
         // เพื่อประหยัดพื้นที่บน Jenkins agent หลังจาก push image ขึ้น Docker Hub แล้ว

@@ -4,6 +4,7 @@ const app: Express = express()
 
 const port: number = 3000
 
+// test 
 // Routes
 // GET /
 app.get('/', (_: Request, res: Response) => {
@@ -24,6 +25,16 @@ app.get('/api/health', (_: Request, res: Response) => {
   res.json({
     status: 'UP'
   })
+})
+
+// GET /api/users
+app.get('/api/users', (_: Request, res: Response) => {
+  const users = [
+    { id: 1, name: 'Alice' },
+    { id: 2, name: 'Bob' },
+    { id: 3, name: 'Charlie' }
+  ]
+  res.json(users)
 })
 
 // Start server
