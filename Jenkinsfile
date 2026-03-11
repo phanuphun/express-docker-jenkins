@@ -132,6 +132,7 @@ pipeline {
                     docker ps --filter name=${APP_NAME} --format "table {{.Names}}\\t{{.Image}}\\t{{.Status}}"
                 """
             }
+            
             post {
                 always {
                     echo "Pipeline finished with status: ${currentBuild.currentResult}"
