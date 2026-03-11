@@ -32,7 +32,8 @@ app.get('/api/users', (_: Request, res: Response) => {
   const users = [
     { id: 1, name: 'Alice' },
     { id: 2, name: 'Bob' },
-    { id: 3, name: 'Charlie' }
+    { id: 3, name: 'Charlie' },
+    { id: 4, name: 'First' },
   ]
   res.json(users)
 })
